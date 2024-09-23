@@ -94,7 +94,8 @@ def run_cleaner(input_directory, output_directory):
 input_directory_path = r'.\Logs\OriginalLogs'  # Directory containing your datalog files
 output_directory_path = r'.\Logs\CleanedLogs'  # Directory to save cleaned files
 
-# Create output directory if it doesn't exist
+# Create input and output directories if they don't exist
+os.makedirs(input_directory_path, exist_ok=True)
 os.makedirs(output_directory_path, exist_ok=True)
 
 run_cleaner(input_directory_path, output_directory_path)
