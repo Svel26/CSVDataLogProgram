@@ -107,6 +107,18 @@ After downloading and extracting the ZIP file, you'll find several files and dir
 
 ---
 
+### 8. Common issues
+
+1. when running `Main.py` for the first time it might give an error about the Log directories, close the program and reopen it, this should resolve the issue.
+
+---
+
+### 9. Updating
+
+If you want to pull (update) the program you can run the `Update.bat` file
+
+---
+
 ## **Directory Structure**
 
 ```plaintext
