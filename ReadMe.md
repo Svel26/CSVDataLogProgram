@@ -77,15 +77,7 @@ After downloading and extracting the ZIP file or cloning the repository, you'll 
 
 ---
 
-### 5. Organizing the Log Files
-
-1. **Place Log Files in the Correct Directory**:
-   - Place raw log files from the HMI into the `Logs\OriginalLogs` folder.
-   - The program will automatically clean these files and output the cleaned logs in the `Logs\CleanedLogs` folder.
-
----
-
-### 6. Running the Program
+### 5. Running the Program
 
 1. **Run "Main.py"**:
    - Once everything is set up, run the main program by executing **"Main.py"**.
@@ -96,6 +88,14 @@ After downloading and extracting the ZIP file or cloning the repository, you'll 
 2. **Access the Hosted Directory**:
    - Open a web browser and go to `http://localhost:8000`.
    - From here, you can access and download files, including cleaned log files, from any machine on your network.
+
+---
+
+### 6. Organizing the Log Files
+
+1. **Place Log Files in the Correct Directory**:
+   - Place raw log files from the HMI into the `Logs\OriginalLogs` folder.
+   - The program will automatically clean these files and output the cleaned logs in the `Logs\CleanedLogs` folder.
 
 ---
 
