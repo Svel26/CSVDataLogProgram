@@ -10,9 +10,9 @@ This project was developed during my internship at **Premier Tech**, where I use
 
 ## **Installation Guide**
 
-### 1. Extract the ZIP File
+### 1. Extract the ZIP File or clone into the desired directory
 
-After downloading and extracting the ZIP file, you'll find several files and directories. Follow the steps below to set everything up properly.
+After downloading and extracting the ZIP file or cloning the repository, you'll find several files and directories. Follow the steps below to set everything up properly.
 
 ### 2. Download and Install Python 3.12
 
