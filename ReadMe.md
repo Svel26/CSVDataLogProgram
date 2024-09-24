@@ -82,8 +82,11 @@ After downloading and extracting the ZIP file or cloning the repository, you'll 
 1. **Run "Main.py"**:
    - Once everything is set up, run the main program by executing **"Main.py"**.
    - This will start the program and:
-     - **Host the cleaned log directory** at `http://localhost:8000`.
-     - **Automatically clean log files** placed in the `logs/original/` directory.
+     - Host the cleaned log directory at `http://localhost:8000`.
+     - Automatically clean log files placed in the `logs/original/` directory.
+
+         **Directory Not Found Error**:
+      - If you run `Main.py` for the first time and receive an error about missing log directories, it may be because the `logs/cleaned/` directory hasn't been created yet. Simply close and restart the `main.py` program, which should resolve the issue.
 
 2. **Access the Hosted Directory**:
    - Open a web browser and go to `http://localhost:8000`.
@@ -107,14 +110,7 @@ After downloading and extracting the ZIP file or cloning the repository, you'll 
 
 ---
 
-### 8. Common Issues
-
-1. **Directory Not Found Error**:
-   - If you run `Main.py` for the first time and receive an error about missing log directories, it may be because the `logs/cleaned/` directory hasn't been created yet. Run `cleaner.py` first, or simply close and restart the program, which should resolve the issue.
-
----
-
-### 9. Updating the Program
+### 8. Updating the Program
 
 1. **Run "update.bat"**:
    - If you want to pull updates and ensure all dependencies are up-to-date, simply run the `update.bat` script located in the `installation/` directory.
