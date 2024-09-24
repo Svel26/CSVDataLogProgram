@@ -63,7 +63,10 @@ def standardize_csv(temp_file, output_file):
         logging.error(f"Error saving {output_file}: {e}")
 
 def clean_datalogs_in_directory(input_directory, output_directory, processed_files, output_file_prefix):
+    os.makedirs(input_directory, exist_ok=True)
     os.makedirs(output_directory, exist_ok=True)
+    os.makedirs('temp_files', exist_ok=True)
+    
     for filename in os.listdir(input_directory):
         if filename.endswith(".csv"):
             input_file = os.path.join(input_directory, filename)
