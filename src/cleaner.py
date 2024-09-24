@@ -14,7 +14,9 @@ def setup_logging():
     logging.basicConfig(level=logging.INFO)
 
 def remove_rt_count_lines(input_file):
-    temp_file = input_file + ".tmp"
+    temp_dir = 'temp_files'
+    os.makedirs(temp_dir, exist_ok=True)
+    temp_file = os.path.join(temp_dir, os.path.basename(input_file) + ".tmp")
     with open(input_file, 'r') as infile, open(temp_file, 'w') as outfile:
         for line in infile:
             if "$RT_COUNT$" not in line:

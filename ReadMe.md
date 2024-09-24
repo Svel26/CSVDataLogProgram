@@ -100,6 +100,8 @@ After downloading and extracting the ZIP file or cloning the repository, you'll 
    - Place raw log files from the HMI into the `logs/original/` folder.
    - The program will automatically clean these files and output the cleaned logs in the `logs/cleaned/` folder.
 
+      (Both the in and output directory can be changed in `config/config.json`)
+
 ---
 
 ### 7. Using Grafana with the Program
