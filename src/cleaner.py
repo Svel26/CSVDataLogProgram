@@ -1,5 +1,4 @@
 import os
-import time
 import json
 import pandas as pd
 import csv
@@ -66,13 +65,22 @@ def standardize_csv(temp_file, output_file):
 def clean_datalogs_in_directory(input_directory, output_directory, processed_files, output_file_prefix):
     os.makedirs(output_directory, exist_ok=True)
     for filename in os.listdir(input_directory):
-        input_file = os.path.join(input_directory, filename)
-        if input_file in processed_files:
-            logging.info(f"Skipping already processed file: {input_file}")
-            continue
+        if filename.endswith(".csv"):
+            input_file = os.path.join(input_directory, filename)
+            logging.info(f"Removing '$RT_COUNT$' lines from: {input_file}")
+            temp_file = remove_rt_count_lines(input_file)
+            output_file = os.path.join(output_directory, f"{output_file_prefix}_{filename}")
+            logging.info(f"Processing file: {input_file}")
+            standardize_csv(temp_file, output_file)
+            processed_files.append(output_file)
 
-        logging.info(f"Processing file: {input_file}")
-        temp_file = remove_rt_count_lines(input_file)
-        output_file = os.path.join(output_directory, f"{output_file_prefix}_{filename}")
-        standardize_csv(temp_file, output_file)
-        processed_files.add(input_file)
+if __name__ == "__main__":
+    setup_logging()
+    config = load_config('config/config.json')
+    input_directory = config['input_directory']
+    output_directory = config['output_directory']
+    output_file_prefix = config['output_file_prefix']
+    processed_files = []
+
+    clean_datalogs_in_directory(input_directory, output_directory, processed_files, output_file_prefix)
+    logging.info(f"Processed files: {processed_files}")
