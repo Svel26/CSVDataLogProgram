@@ -1,0 +1,8 @@
+{
+    "input_directory": "./logs/original",
+    "output_directory": "./logs/cleaned",
+    "processing_interval": 5,
+    "output_file_prefix": "cleaned_",
+    "server_host": "localhost",
+    "server_port": 8000
+}
