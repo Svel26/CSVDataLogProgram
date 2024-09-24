@@ -14,9 +14,7 @@ def setup_logging():
     logging.basicConfig(level=logging.INFO)
 
 def remove_rt_count_lines(input_file):
-    temp_dir = 'temp_files'
-    os.makedirs(temp_dir, exist_ok=True)
-    temp_file = os.path.join(temp_dir, os.path.basename(input_file) + ".tmp")
+    temp_file = input_file + ".tmp"
     with open(input_file, 'r') as infile, open(temp_file, 'w') as outfile:
         for line in infile:
             if "$RT_COUNT$" not in line:
@@ -38,6 +36,13 @@ def standardize_csv(temp_file, output_file):
         return
 
     logging.info(f"Rows read from {temp_file}: {len(df)}")
+
+    required_columns = ['VarValue', 'Time_ms', 'Validity', 'TimeString']
+    missing_columns = [col for col in required_columns if col not in df.columns]
+
+    if missing_columns:
+        logging.error(f"Missing columns in {temp_file}: {', '.join(missing_columns)}")
+        return
 
     df.replace({',': '.'}, regex=True, inplace=True)
     df['VarValue'] = pd.to_numeric(df['VarValue'], errors='coerce')
