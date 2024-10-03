@@ -3,7 +3,6 @@ import json
 import pandas as pd
 import csv
 import logging
-import sys
 import time
 
 def load_config(config_file):
@@ -12,6 +11,7 @@ def load_config(config_file):
 
 def setup_logging():
     logging.basicConfig(level=logging.INFO)
+    
 
 def create_directories():
     os.makedirs('logs/cleaned', exist_ok=True)
