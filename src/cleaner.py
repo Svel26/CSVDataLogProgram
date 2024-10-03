@@ -4,6 +4,7 @@ import pandas as pd
 import csv
 import logging
 import sys
+import time
 
 def load_config(config_file):
     with open(config_file, 'r') as file:
@@ -11,6 +12,10 @@ def load_config(config_file):
 
 def setup_logging():
     logging.basicConfig(level=logging.INFO)
+
+def create_directories():
+    os.makedirs('logs/cleaned', exist_ok=True)
+    os.makedirs('logs/original', exist_ok=True)
 
 def remove_rt_count_lines(input_file):
     temp_dir = 'temp_files'
@@ -50,40 +55,39 @@ def standardize_csv(temp_file, output_file):
         return
 
     df.replace({',': '.'}, regex=True, inplace=True)
-    df['VarValue'] = pd.to_numeric(df['VarValue'], errors='coerce')
-    df['Time_ms'] = pd.to_numeric(df['Time_ms'], errors='coerce')
-    df['Validity'] = pd.to_numeric(df['Validity'], errors='coerce')
 
     df['TimeString'] = df['TimeString'].apply(standardize_time_format)
 
-    try:
-        df.to_csv(output_file, index=False, quoting=csv.QUOTE_ALL)
-        logging.info(f"Cleaned CSV saved to {output_file}")
-    except Exception as e:
-        logging.error(f"Error saving {output_file}: {e}")
+    df.to_csv(output_file, index=False, sep=';', quoting=csv.QUOTE_NONNUMERIC)
+    logging.info(f"Standardized CSV written to {output_file}")
 
 def clean_datalogs_in_directory(input_directory, output_directory, processed_files, output_file_prefix):
-    os.makedirs(input_directory, exist_ok=True)
-    os.makedirs(output_directory, exist_ok=True)
-    os.makedirs('temp_files', exist_ok=True)
+    if not os.path.exists(input_directory):
+        logging.error(f"Input directory does not exist: {input_directory}")
+        return
     
+    processed_files.clear()
+
     for filename in os.listdir(input_directory):
         if filename.endswith(".csv"):
             input_file = os.path.join(input_directory, filename)
             logging.info(f"Removing '$RT_COUNT$' lines from: {input_file}")
             temp_file = remove_rt_count_lines(input_file)
-            output_file = os.path.join(output_directory, f"{output_file_prefix}_{filename}")
+            output_file = os.path.join(output_directory, f"{output_file_prefix}{filename}")
             logging.info(f"Processing file: {input_file}")
             standardize_csv(temp_file, output_file)
             processed_files.append(output_file)
 
 if __name__ == "__main__":
     setup_logging()
+    create_directories()
     config = load_config('config/config.json')
     input_directory = config['input_directory']
     output_directory = config['output_directory']
     output_file_prefix = config['output_file_prefix']
     processed_files = []
 
-    clean_datalogs_in_directory(input_directory, output_directory, processed_files, output_file_prefix)
-    logging.info(f"Processed files: {processed_files}")
+    while True:
+        clean_datalogs_in_directory(input_directory, output_directory, processed_files, output_file_prefix)
+        logging.info(f"Processed files: {processed_files}")
+        time.sleep(5)
